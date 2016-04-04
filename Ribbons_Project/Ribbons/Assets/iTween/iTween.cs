@@ -38,8 +38,10 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 #region Namespaces
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
+using Chronos;
 #endregion
 
 /// <summary>
@@ -4577,8 +4579,8 @@ public class iTween : MonoBehaviour{
 #region #5 Tween Steps
 	
 	IEnumerator TweenDelay(){
-		delayStarted = Time.time;
-		yield return new WaitForSeconds (delay);
+        delayStarted = GetComponent<Timeline>().time;
+        yield return GetComponent<Timeline>().WaitForSeconds(delay);
 		if(wasPaused){
 			wasPaused=false;
 			TweenStart();	
@@ -4608,8 +4610,8 @@ public class iTween : MonoBehaviour{
 	
 	IEnumerator TweenRestart(){
 		if(delay > 0){
-			delayStarted = Time.time;
-			yield return new WaitForSeconds (delay);
+            delayStarted = GetComponent<Timeline>().time;
+            yield return GetComponent<Timeline>().WaitForSeconds(delay);
 		}
 		loop=true;
 		TweenStart();
@@ -4710,7 +4712,7 @@ public class iTween : MonoBehaviour{
 	/// </param>
 	public static Vector3 Vector3Update(Vector3 currentValue, Vector3 targetValue, float speed){
 		Vector3 diff = targetValue - currentValue;
-		currentValue += (diff * speed) * Time.deltaTime;
+        currentValue += (diff * speed) * Time.deltaTime;
 		return (currentValue);
 	}
 	
@@ -4731,7 +4733,7 @@ public class iTween : MonoBehaviour{
 	/// </param>
 	public static Vector2 Vector2Update(Vector2 currentValue, Vector2 targetValue, float speed){
 		Vector2 diff = targetValue - currentValue;
-		currentValue += (diff * speed) * Time.deltaTime;
+        currentValue += (diff * speed) * Time.deltaTime;
 		return (currentValue);
 	}
 	
@@ -4752,7 +4754,7 @@ public class iTween : MonoBehaviour{
 	/// </param>
 	public static float FloatUpdate(float currentValue, float targetValue, float speed){
 		float diff = targetValue - currentValue;
-		currentValue += (diff * speed) * Time.deltaTime;
+        currentValue += (diff * speed) * Time.deltaTime;
 		return (currentValue);
 	}
 	
@@ -6183,7 +6185,7 @@ public class iTween : MonoBehaviour{
 		Component[] tweens = target.GetComponents(typeof(iTween));
 		foreach (iTween item in tweens){
 			if(item.delay>0){
-				item.delay-=Time.time-item.delayStarted;
+                item.delay -= target.GetComponent<Timeline>().time - item.delayStarted;
 				item.StopCoroutine("TweenDelay");
 			}
 			item.isPaused=true;
@@ -6216,7 +6218,7 @@ public class iTween : MonoBehaviour{
 			targetType=targetType.Substring(0,type.Length);
 			if(targetType.ToLower() == type.ToLower()){
 				if(item.delay>0){
-					item.delay-=Time.time-item.delayStarted;
+                    item.delay -= target.GetComponent<Timeline>().time - item.delayStarted;
 					item.StopCoroutine("TweenDelay");
 				}
 				item.isPaused=true;
@@ -6238,7 +6240,7 @@ public class iTween : MonoBehaviour{
 			targetType=targetType.Substring(0,type.Length);
 			if(targetType.ToLower() == type.ToLower()){
 				if(item.delay>0){
-					item.delay-=Time.time-item.delayStarted;
+                    item.delay -= target.GetComponent<Timeline>().time - item.delayStarted;
 					item.StopCoroutine("TweenDelay");
 				}
 				item.isPaused=true;
@@ -7019,7 +7021,7 @@ public class iTween : MonoBehaviour{
         }
         else
         {
-            runningTime += Time.deltaTime;
+            runningTime += GetComponent<Timeline>().deltaTime;
         }
 
 		if(reverse){
@@ -7531,9 +7533,10 @@ using UnityEngine;
 /// <para>Author: Bob Berkebile (http://pixelplacement.com)</para>
 /// <para>Support: http://itween.pixelplacement.com</para>
 /// </summary>
+[RequireComponent(typeof(Timeline))]
 public class iTween : MonoBehaviour{
 	
-	#region Variables
+#region Variables
 	
 	//repository of all living iTweens:
 	public static ArrayList tweens = new ArrayList();
@@ -7660,9 +7663,9 @@ public class iTween : MonoBehaviour{
 		_ReflectColor
 	}
 				
-	#endregion
+    #endregion
 	
-	#region Defaults
+#region Defaults
 	
 	/// <summary>
 	/// A collection of baseline presets that iTween needs and utilizes if certain parameters are not provided. 
@@ -7691,9 +7694,9 @@ public class iTween : MonoBehaviour{
 		public static Vector3 up = Vector3.up;
 	}
 	
-	#endregion
+    #endregion
 	
-	#region #1 Static Registers
+#region #1 Static Registers
 
 	/// <summary>
 	/// Sets up a GameObject to avoid hiccups when an initial iTween is added. It's advisable to run this on every object you intend to run iTween on in its Start or Awake.
@@ -10591,9 +10594,9 @@ public class iTween : MonoBehaviour{
 		Launch(target,args);
 	}	
 	
-	#endregion
+    #endregion
 	
-	#region #2 Generate Method Targets
+#region #2 Generate Method Targets
 	
 	//call correct set target method and set tween application delegate:
 	void GenerateTargets(){
@@ -10736,9 +10739,9 @@ public class iTween : MonoBehaviour{
 		}
 	}
 	
-	#endregion
+    #endregion
 	
-	#region #3 Generate Specific Targets
+#region #3 Generate Specific Targets
 	
 	void GenerateRectTargets(){
 		//values holder [0] from, [1] to, [2] calculated value from ease equation:
@@ -11498,9 +11501,9 @@ public class iTween : MonoBehaviour{
 		}
 	}
 	
-	#endregion
+    #endregion
 	
-	#region #4 Apply Targets
+#region #4 Apply Targets
 	
 	void ApplyRectTargets(){
 		//calculate:
@@ -12056,13 +12059,13 @@ public class iTween : MonoBehaviour{
 		*/
 	}		
 	
-	#endregion	
+    #endregion	
 	
-	#region #5 Tween Steps
+#region #5 Tween Steps
 	
 	IEnumerator TweenDelay(){
-		delayStarted = Time.time;
-		yield return new WaitForSeconds (delay);
+		delayStarted = GetComponent<Timeline>().time;
+		yield return GetComponent<Timeline>().WaitForSeconds (delay);
 		if(wasPaused){
 			wasPaused=false;
 			TweenStart();	
@@ -12092,8 +12095,8 @@ public class iTween : MonoBehaviour{
 	
 	IEnumerator TweenRestart(){
 		if(delay > 0){
-			delayStarted = Time.time;
-			yield return new WaitForSeconds (delay);
+			delayStarted = GetComponent<Timeline>().time;
+			yield return GetComponent<Timeline>().WaitForSeconds (delay);
 		}
 		loop=true;
 		TweenStart();
@@ -12153,9 +12156,9 @@ public class iTween : MonoBehaviour{
 		}
 	}	
 	
-	#endregion
+    #endregion
 	
-	#region #6 Update Callable
+#region #6 Update Callable
 	
 	/// <summary>
 	/// Returns a Rect that is eased between a current and target value by the supplied speed.
@@ -12194,7 +12197,7 @@ public class iTween : MonoBehaviour{
 	/// </param>
 	public static Vector3 Vector3Update(Vector3 currentValue, Vector3 targetValue, float speed){
 		Vector3 diff = targetValue - currentValue;
-		currentValue += (diff * speed) * Time.deltaTime;
+		currentValue += (diff * speed) * GetComponent<Timeline>().deltaTime;
 		return (currentValue);
 	}
 	
@@ -12215,7 +12218,7 @@ public class iTween : MonoBehaviour{
 	/// </param>
 	public static Vector2 Vector2Update(Vector2 currentValue, Vector2 targetValue, float speed){
 		Vector2 diff = targetValue - currentValue;
-		currentValue += (diff * speed) * Time.deltaTime;
+		currentValue += (diff * speed) * GetComponent<Timeline>().deltaTime;
 		return (currentValue);
 	}
 	
@@ -12869,9 +12872,9 @@ public class iTween : MonoBehaviour{
 		LookUpdate(target,Hash("looktarget",looktarget,"time",time));
 	}
 
-	#endregion
+#endregion
 	
-	#region #7 External Utilities
+#region #7 External Utilities
 	
 	/// <summary>
 	/// Returns the length of a curved path drawn through the provided array of Transforms.
@@ -13667,7 +13670,7 @@ public class iTween : MonoBehaviour{
 		Component[] tweens = target.GetComponents(typeof(iTween));
 		foreach (iTween item in tweens){
 			if(item.delay>0){
-				item.delay-=Time.time-item.delayStarted;
+				item.delay-=GetComponent<Timeline>().time-item.delayStarted;
 				item.StopCoroutine("TweenDelay");
 			}
 			item.isPaused=true;
@@ -13700,7 +13703,7 @@ public class iTween : MonoBehaviour{
 			targetType=targetType.Substring(0,type.Length);
 			if(targetType.ToLower() == type.ToLower()){
 				if(item.delay>0){
-					item.delay-=Time.time-item.delayStarted;
+					item.delay-=GetComponent<Timeline>().time-item.delayStarted;
 					item.StopCoroutine("TweenDelay");
 				}
 				item.isPaused=true;
@@ -13722,7 +13725,7 @@ public class iTween : MonoBehaviour{
 			targetType=targetType.Substring(0,type.Length);
 			if(targetType.ToLower() == type.ToLower()){
 				if(item.delay>0){
-					item.delay-=Time.time-item.delayStarted;
+					item.delay-=GetComponent<Timeline>().time-item.delayStarted;
 					item.StopCoroutine("TweenDelay");
 				}
 				item.isPaused=true;
@@ -14018,9 +14021,9 @@ public class iTween : MonoBehaviour{
 		}
 	}	
 	
-	#endregion		
+#endregion		
 
-	#region Component Segments
+#region Component Segments
 	
 	void Awake(){
 		RetrieveArgs();
@@ -14100,9 +14103,9 @@ public class iTween : MonoBehaviour{
 		DisableKinematic();
 	}
 	
-	#endregion
+#endregion
 	
-	#region Internal Helpers
+#region Internal Helpers
 	
 	private static void DrawLineHelper(Vector3[] line, Color color, string method){
 		Gizmos.color=color;
@@ -14607,9 +14610,9 @@ public class iTween : MonoBehaviour{
 		StartCoroutine("TweenDelay");
 	}	
 	
-	#endregion	
+#endregion	
 	
-	#region Easing Curves
+#region Easing Curves
 	
 	private float linear(float start, float end, float value){
 		return Mathf.Lerp(start, end, value);
@@ -14916,9 +14919,9 @@ public class iTween : MonoBehaviour{
 	}		
 	/* GFX47 MOD END */
 	
-	#endregion	
+#endregion	
 	
-	#region Deprecated and Renamed
+#region Deprecated and Renamed
 	/*
 	public static void audioFrom(GameObject target, Hashtable args){Debug.LogError("iTween Error: audioFrom() has been renamed to AudioFrom().");}
 	public static void audioTo(GameObject target, Hashtable args){Debug.LogError("iTween Error: audioTo() has been renamed to AudioTo().");}
@@ -14964,6 +14967,6 @@ public class iTween : MonoBehaviour{
 	public static void stopType(GameObject target, Hashtable args){Debug.LogError("iTween Error: stopType() has been deprecated. Please investigate Stop().");}
 	public static void tweenCount(GameObject target, Hashtable args){Debug.LogError("iTween Error: tweenCount() has been deprecated. Please investigate Count().");}
 	*/
-	#endregion
+#endregion
 } 
 #endif
