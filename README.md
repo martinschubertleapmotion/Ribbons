@@ -1,2 +1,0 @@
-# Ribbons
-Ribbons Project
