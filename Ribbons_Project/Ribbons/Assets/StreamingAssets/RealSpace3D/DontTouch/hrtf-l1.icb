@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfRealSpace3D_LogIndicator xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <RealSpace3D_LogIndicator>
+    <LogOn>false</LogOn>
+  </RealSpace3D_LogIndicator>
+</ArrayOfRealSpace3D_LogIndicator>

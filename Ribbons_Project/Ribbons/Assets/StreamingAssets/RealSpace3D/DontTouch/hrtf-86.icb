@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfRealSpace3D_Aborter xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <RealSpace3D_Aborter>
+    <Abort>0</Abort>
+  </RealSpace3D_Aborter>
+</ArrayOfRealSpace3D_Aborter>
