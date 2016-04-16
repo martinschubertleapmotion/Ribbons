@@ -3,7 +3,12 @@ guid: 8373949bba1ea5f44bf1a0f9e40e3886
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
+    100000: //RootNode
+    400000: //RootNode
+    2300000: //RootNode
+    3300000: //RootNode
     4300000: turret_a_collision_mesh
+    11100000: //RootNode
   materials:
     importMaterials: 0
     materialName: 0

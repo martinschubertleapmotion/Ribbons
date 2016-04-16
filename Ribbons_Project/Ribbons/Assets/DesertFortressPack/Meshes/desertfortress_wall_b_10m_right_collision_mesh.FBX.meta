@@ -3,7 +3,12 @@ guid: d944c0a755dc05548bcc86085a9b4334
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
+    100000: //RootNode
+    400000: //RootNode
+    2300000: //RootNode
+    3300000: //RootNode
     4300000: wall_b_10m_right_collision_mesh
+    11100000: //RootNode
   materials:
     importMaterials: 0
     materialName: 0

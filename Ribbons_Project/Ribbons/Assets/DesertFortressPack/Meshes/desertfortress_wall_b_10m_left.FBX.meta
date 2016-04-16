@@ -3,7 +3,12 @@ guid: e7bcc8c5736070f4aa4c2de14fe58e8e
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
+    100000: //RootNode
+    400000: //RootNode
+    2300000: //RootNode
+    3300000: //RootNode
     4300000: wall_b_10m_left_wall
+    11100000: //RootNode
   materials:
     importMaterials: 0
     materialName: 0
