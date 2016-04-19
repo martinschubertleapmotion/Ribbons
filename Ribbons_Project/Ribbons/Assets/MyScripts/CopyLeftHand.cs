@@ -4,13 +4,12 @@ using System.Collections;
 public class CopyLeftHand : MonoBehaviour {
 
 		public GameObject ObjectToCopy; // This you assign in the inspector
-		public Transform NewParent;  
+        public Transform PlaceToCopy;
 
 		void Start( )
 		{
-		Instantiate(ObjectToCopy, transform.position, transform.rotation);
-		ObjectToCopy.gameObject.name = "FrozenLeftHand";
-		ObjectToCopy.gameObject.SetActive(true);
-		ObjectToCopy.transform.SetParent (NewParent);
+            var clone = Instantiate(ObjectToCopy, PlaceToCopy.position, PlaceToCopy.rotation) as GameObject;
+            clone.name = "FrozenLeftHand";
+            clone.SetActive(true);
 		}
 	}
