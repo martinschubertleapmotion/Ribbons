@@ -20,13 +20,13 @@ namespace Leap.Unity.PinchUtility {
 
     protected int _lastUpdateFrame = -1;
 
-    protected bool _isPinching = false;
-    protected bool _didChange = false;
+    public bool _isPinching = false;
+    public bool _didChange = false;
 
     protected float _lastPinchTime = 0.0f;
     protected float _lastUnpinchTime = 0.0f;
 
-    protected Vector3 _pinchPos;
+    public Vector3 _pinchPos;
     protected Quaternion _pinchRotation;
 
     protected virtual void OnValidate() {
