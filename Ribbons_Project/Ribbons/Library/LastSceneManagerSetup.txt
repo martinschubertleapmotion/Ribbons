@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Test_RopeHands.unity
+- path: Assets/Test_9Launchers.unity
   isLoaded: 1
   isActive: 1
